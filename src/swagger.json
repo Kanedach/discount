@@ -1,0 +1,732 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "0.0.1",
+    "title": "sftoolApi",
+    "description": "The API deliver information for the Single Project Business locations",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "The API  is an OpenID Connect provider on Corproot Identity Service 2 base."
+    },
+    {
+      "name": "Single Project Business",
+      "description": "API for Single Project Business"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/auth/": {
+      "get": {
+        "tags": ["Authentication"],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/Auth"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/spb/v1/": {
+      "get": {
+        "tags": [
+          "Single Project Business"
+        ],
+        "summary": "Get all public information from the Single Project Business location.",
+        "operationId": "",
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "readOnly": true,
+                    "uniqueItems": true
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "required": [
+                      "street",
+                      "streetNumber",
+                      "zip",
+                      "city"
+                    ],
+                    "type": "object",
+                    "properties": {
+                      "street": {
+                        "type": "string"
+                      },
+                      "streetNumber": {
+                        "type": "string"
+                      },
+                      "zip": {
+                        "type": "number"
+                      },
+                      "city": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "socketState": {
+                    "type": "string",
+                    "enum": [
+                      "OTO Ready",
+                      "Fiber Ready",
+                      "no state",
+                      "Unknown"
+                    ],
+                    "default": "Unknown"
+                  },
+                  "island": {
+                    "type": "string",
+                    "enum": [
+                      "Central",
+                      "West",
+                      "East",
+                      "South"
+                    ]
+                  },
+                  "processingStatus": {
+                    "type": "string",
+                    "enum": [
+                      "Construction",
+                      "Approved",
+                      "Supported"
+                    ]
+                  },
+                  "connectKit": {
+                    "type": "string",
+                    "enum": [
+                      "Yes",
+                      "No",
+                      "Unknown"
+                    ],
+                    "default": "Unknown"
+                  },
+                  "enterDate": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "stagesState": {
+                    "type": "boolean",
+                    "default": "false"
+                  },
+                  "socketHyperlink": {
+                    "type": "string",
+                    "description": "The URL is encoded"
+                  },
+                  "comment": {
+                    "type": "string"
+                  },
+                  "create": {
+                    "type": "string",
+                    "format": "date",
+                    "readOnly": true
+                  },
+                  "update": {
+                    "type": "string",
+                    "format": "date",
+                    "readOnly": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/spb/v1/search/:term": {
+      "get": {
+        "tags": [
+          "Single Project Business"
+        ],
+        "summary": "Search a Single Project Business",
+        "operationId": "searchSingleProjectBusiness",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "term",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "readOnly": true,
+                    "uniqueItems": true
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "required": [
+                      "street",
+                      "streetNumber",
+                      "zip",
+                      "city"
+                    ],
+                    "type": "object",
+                    "properties": {
+                      "street": {
+                        "type": "string"
+                      },
+                      "streetNumber": {
+                        "type": "string"
+                      },
+                      "zip": {
+                        "type": "number"
+                      },
+                      "city": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "socketState": {
+                    "type": "string",
+                    "enum": [
+                      "OTO Ready",
+                      "Fiber Ready",
+                      "no state",
+                      "Unknown"
+                    ],
+                    "default": "Unknown"
+                  },
+                  "island": {
+                    "type": "string",
+                    "enum": [
+                      "Central",
+                      "West",
+                      "East",
+                      "South"
+                    ]
+                  },
+                  "processingStatus": {
+                    "type": "string",
+                    "enum": [
+                      "Construction",
+                      "Approved",
+                      "Supported"
+                    ]
+                  },
+                  "connectKit": {
+                    "type": "string",
+                    "enum": [
+                      "Yes",
+                      "No",
+                      "Unknown"
+                    ],
+                    "default": "Unknown"
+                  },
+                  "enterDate": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "stagesState": {
+                    "type": "boolean",
+                    "default": "false"
+                  },
+                  "socketHyperlink": {
+                    "type": "string",
+                    "description": "The URL is encoded"
+                  },
+                  "comment": {
+                    "type": "string"
+                  },
+                  "create": {
+                    "type": "string",
+                    "format": "date",
+                    "readOnly": true
+                  },
+                  "update": {
+                    "type": "string",
+                    "format": "date",
+                    "readOnly": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/spb/v1/secure": {
+      "get": {
+        "tags": [
+          "Single Project Business"
+        ],
+        "summary": "Get all information from the Single Project Business location included the contact data",
+        "operationId": "",
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "$ref": "#/definitions/SingleProjectBusiness"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "singleProjectBusiness": [
+              "readFullSingleProjectBusiness",
+              "write:singleProjectBusiness",
+              "update:singleProjectBusiness",
+              "delete:singleProjectBusiness"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Single Project Business"
+        ],
+        "summary": "Add a new Single Project Business location",
+        "parameters": [
+          {
+            "name": "singleProjectBusiness",
+            "in": "body",
+            "description": "Single Project Business that we want to create",
+            "schema": {
+              "$ref": "#/definitions/SingleProjectBusiness"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/SingleProjectBusiness"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "singleProjectBusiness": [
+              "readFullSingleProjectBusiness",
+              "write:singleProjectBusiness",
+              "update:singleProjectBusiness",
+              "delete:singleProjectBusiness"
+            ]
+          }
+        ]
+      }
+    },
+    "/spb/v1/secure/:id": {
+      "get": {
+        "tags": [
+          "Single Project Business"
+        ],
+        "summary": "",
+        "operationId": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "description": "ID from the Object"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/SingleProjectBusiness"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "singleProjectBusiness": [
+              "readFullSingleProjectBusiness",
+              "write:singleProjectBusiness",
+              "update:singleProjectBusiness",
+              "delete:singleProjectBusiness"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Single Project Business"
+        ],
+        "summary": "Update Single Project Business",
+        "operationId": "updateSingleProjectBusiness",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "description": "ID from the Object that need to be updated"
+          },
+          {
+            "name": "body",
+            "description": "Single Project Business Object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SingleProjectBusiness"
+            },
+            "in": "body"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/SingleProjectBusiness"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "406": {
+            "description": "Not Acceptable"
+          }
+        },
+        "security": [
+          {
+            "singleProjectBusiness": [
+              "readFullSingleProjectBusiness",
+              "write:singleProjectBusiness",
+              "update:singleProjectBusiness",
+              "delete:singleProjectBusiness"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Single Project Business"
+        ],
+        "summary": "Delete a Single Project Business location",
+        "operationId": "deleteSingleProjectBusiness",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "singleProjectBusiness": [
+              "readFullSingleProjectBusiness",
+              "write:singleProjectBusiness",
+              "update:singleProjectBusiness",
+              "delete:singleProjectBusiness"
+            ]
+          }
+        ]
+      }
+    },
+    "/spb/v1/secure/search/:term": {
+      "get": {
+        "tags": [
+          "Single Project Business"
+        ],
+        "summary": "Search a Single Project Business",
+        "operationId": "seachSingleProjectBusiness",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "term",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "$ref": "#/definitions/SingleProjectBusiness"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/spb/v1/admin/": {
+      "post": {
+        "tags": [
+          "Single Project Business Administration"
+        ],
+        "summary": "Import a array JSON of Single Project Business Objects",
+        "operationId": "importSingleProjectBusiness",
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        },
+        "security": [
+          {
+            "singleProjectBusiness": [
+              "import:singleProjectBusiness",
+              "reset:singleProjectBusiness"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Single Project Business Administration"
+        ],
+        "summary": "RESET the Single Project Business Database",
+        "operationId": "resetSingleProjectBusiness",
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        },
+        "security": [
+          {
+            "singleProjectBusiness": [
+              "import:singleProjectBusiness",
+              "reset:singleProjectBusiness"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Auth": {
+      "description": "Auth Token information",
+      "type": "object",
+      "properties": {
+        "authorizationEndpoint": {
+          "type": "string",
+          "readOnly": true
+        },
+        "clientId": {
+          "type": "string",
+          "readOnly": true
+        },
+        "accessTokenValidity": {
+          "type": "string",
+          "readOnly": true
+        },
+        "tokenEndpoint": {
+          "type": "string",
+          "readOnly": true
+        },
+        "checkTokenEndpoint": {
+          "type": "string",
+          "readOnly": true
+        },
+        "userInfoEndpoint": {
+          "type": "string",
+          "readOnly": true
+        },
+        "logoutEndpoint": {
+          "type": "string",
+          "readOnly": true
+        },
+        "redirectUris": {
+          "type": "string",
+          "readOnly": true
+        },
+        "grantTypes": {
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "SingleProjectBusiness": {
+      "description": "For Auth users is the contact information enabled",
+      "required": [
+        "address",
+        "island",
+        "processingStatus"
+      ],
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "readOnly": true,
+          "uniqueItems": true
+        },
+        "name": {
+          "type": "string"
+        },
+        "address": {
+          "required": [
+            "street",
+            "streetNumber",
+            "zip",
+            "city"
+          ],
+          "type": "object",
+          "properties": {
+            "street": {
+              "type": "string"
+            },
+            "streetNumber": {
+              "type": "string"
+            },
+            "zip": {
+              "type": "number"
+            },
+            "city": {
+              "type": "string"
+            }
+          }
+        },
+        "socketState": {
+          "type": "string",
+          "enum": [
+            "OTO Ready",
+            "Fiber Ready",
+            "no state",
+            "Unknown"
+          ],
+          "default": "Unknown"
+        },
+        "island": {
+          "type": "string",
+          "enum": [
+            "Central",
+            "West",
+            "East",
+            "South"
+          ]
+        },
+        "processingStatus": {
+          "type": "string",
+          "enum": [
+            "Construction",
+            "Approved",
+            "Supported"
+          ]
+        },
+        "contact": {
+          "type": "object",
+          "properties": {
+            "supervisor": {
+              "type": "string"
+            },
+            "representative": {
+              "type": "string"
+            },
+            "rla": {
+              "type": "string"
+            }
+          }
+        },
+        "connectKit": {
+          "type": "string",
+          "enum": [
+            "Yes",
+            "No",
+            "Unknown"
+          ],
+          "default": "Unknown"
+        },
+        "enterDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "stagesState": {
+          "type": "boolean",
+          "default": "false"
+        },
+        "socketHyperlink": {
+          "type": "string",
+          "description": "The URL is encoded"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "create": {
+          "type": "string",
+          "format": "date",
+          "readOnly": true
+        },
+        "update": {
+          "type": "string",
+          "format": "date",
+          "readOnly": true
+        }
+      }
+    }
+  }
+}

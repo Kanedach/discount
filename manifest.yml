@@ -1,0 +1,9 @@
+---
+applications:
+  - name: sftoolApi
+    buildpacks:
+      - https://github.com/cloudfoundry/nodejs-buildpack
+    disk_quota: 256M
+    memory: 256M
+    instances: 1
+    command: npm run start-prod
